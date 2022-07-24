@@ -53,57 +53,39 @@ func QuadE(x, y int) {
 	Quad(x, y, "A", "C", "C", "A", "B", "B")
 }
 
+/*
+Quad renders the view rectangle:
+Coner_1  Sim_1  Coner_2
+Sim_2           Sim_2
+Sim_2           Sim_2
+Coner_3  Sim_1  Coner_4
+*/
+
 func Quad(x, y int, Corner_1, Corner_2, Corner_3, Corner_4, Sim_1, Sim_2 string) {
 	if x <= 0 || y <= 0 {
 		return
 	} else {
 		for i := 1; i <= y; i++ {
 			if i == 1 {
-				FirstLine(x, Corner_1, Corner_2, Sim_1)
+				Line(x, Corner_1, Sim_1, Corner_2)
 			} else if i == y {
-				LastLine(x, Corner_3, Corner_4, Sim_1)
+				Line(x, Corner_3, Sim_1, Corner_4)
 			} else {
-				MiddleLine(x, Sim_2)
+				Line(x, Sim_2, " ", Sim_2)
 			}
 		}
 	}
 }
 
-// FirstOrLastString prints the first or last lines
-func FirstLine(x int, Corner_1, Corner_2, Sim_1 string) {
+// Line prints a lines
+func Line(x int, FirstS, MidlS, LastS string) {
 	for row := 0; row < x; row++ {
 		if row == 0 { // check of Сorner #1
-			fmt.Print(Corner_1)
+			fmt.Print(FirstS)
 		} else if row == x-1 {
-			fmt.Printf(Corner_2) // check of Сorner #2
+			fmt.Printf(LastS) // check of Сorner #2
 		} else {
-			fmt.Printf(Sim_1) // check of another Simbol #1
-		}
-	}
-	fmt.Println("")
-}
-
-// MiddleLines prints the sub lines
-func MiddleLine(x int, Sim_2 string) {
-	for row := 0; row < x; row++ {
-		if row == 0 || row == x-1 {
-			fmt.Printf(Sim_2)
-		} else {
-			fmt.Printf(" ")
-		}
-	}
-	fmt.Println("")
-}
-
-// LastString prints the first or last lines
-func LastLine(x int, Corner_3, Corner_4, Sim_1 string) {
-	for row := 0; row < x; row++ {
-		if row == 0 {
-			fmt.Printf(Corner_3) // check of Сorner #3
-		} else if row == x-1 {
-			fmt.Printf(Corner_4) // check of Сorner #4
-		} else {
-			fmt.Printf(Sim_1) // check of another Simbol #1
+			fmt.Printf(MidlS) // check of another Simbol #1
 		}
 	}
 	fmt.Println("")
